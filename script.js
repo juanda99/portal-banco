@@ -71,3 +71,36 @@ const inputTransferAmount = document.querySelector('.form__input--amount')
 const inputLoanAmount = document.querySelector('.form__input--loan-amount')
 const inputCloseUsername = document.querySelector('.form__input--user')
 const inputClosePin = document.querySelector('.form__input--pin')
+
+btnLogin.addEventListener('click', (event) => {
+  event.preventDefault()
+  const currentAccount = accounts.find(
+    (acc) => acc.username === inputLoginUsername.value
+  )
+
+  if (currentAccount && currentAccount.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Bienvenido ${
+      currentAccount.owner.split(' ')[0]
+    }`
+    containerApp.style.opacity = 100
+  }
+  console.log(currentAccount)
+})
+
+function displayMovements(movements) {
+  containerMovements.innerHTML = ''
+
+  movements.forEach((mov, i) => {
+    const type = mov > 0 ? 'deposit' : 'withdrawal'
+    const html = `
+        <div class="movements__row">
+          <div class="movements__type movements__type--${type}">${i} ${type}</div>
+          <div class="movements__date"></div>
+          <div class="movements__value">${mov}€</div>
+        </div>
+    `
+
+    containerMovements.innerHTML = html
+    // insertAdjacentHTML
+  })
+}
